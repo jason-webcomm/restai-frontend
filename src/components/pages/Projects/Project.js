@@ -214,7 +214,7 @@ function Project() {
 
   const handleDeleteClick = (source) => {
     if (window.confirm("Delete " + source + "?")) {
-      fetch(url + "/projects/" + projectName + "/embeddings/" + btoa(source),
+      fetch(url + "/projects/" + projectName + "/embeddings/" + btoa(encodeURIComponent(source)),
         {
           method: 'DELETE', headers: new Headers({ 'Authorization': 'Basic ' + user.basicAuth })
         }).then(() => {
@@ -241,7 +241,7 @@ function Project() {
   }
 
   const handleViewClick = (source) => {
-    fetch(url + "/projects/" + projectName + "/embeddings/source/" + btoa(source), {
+    fetch(url + "/projects/" + projectName + "/embeddings/source/" + btoa(encodeURIComponent(source)), {
       method: 'GET',
       headers: new Headers({ 'Content-Type': 'application/json', 'Authorization': 'Basic ' + user.basicAuth }),
     })
@@ -829,6 +829,7 @@ function Project() {
                 <Form.Select ref={splitterForm}>
                   <option value="sentence">sentence</option>
                   <option value="token">token</option>
+                  <option value="pipeline">pipeline</option>
                 </Form.Select>
               </Col>
             </Row>
